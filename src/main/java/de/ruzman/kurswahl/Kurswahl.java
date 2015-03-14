@@ -1,6 +1,8 @@
 package de.ruzman.kurswahl;
 
+import static io.datafx.controller.context.ApplicationContext.getInstance;
 import static java.util.Locale.GERMAN;
+import io.datafx.controller.context.ApplicationContext;
 import io.datafx.controller.flow.Flow;
 import io.datafx.controller.flow.FlowHandler;
 import io.datafx.controller.flow.context.ViewFlowContext;
@@ -13,12 +15,15 @@ import javafx.stage.Stage;
 import de.ruzman.kurswahl.controller.LoginController;
 
 public class Kurswahl extends Application {
+	private ApplicationContext context = getInstance();
+
 	public static void main(String[] args) {
 		launch(Kurswahl.class);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		context.register(new DBJahrgang());
 		String baseName = getClass().getPackage().getName() + ".labels.labels";
 		FlowI18n flow = new FlowI18n(LoginController.class, baseName, GERMAN);
 		flow.startInStage(primaryStage);
