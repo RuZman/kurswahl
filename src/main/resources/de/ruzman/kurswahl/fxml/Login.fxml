@@ -1,11 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.Button?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml">
-	<Button fx:id="testFlowButton" text="%login.login"></Button>
-</StackPane>
+
+<GridPane prefHeight="151.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="137.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="284.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+   	<Button fx:id="testFlowButton" text="%login.login" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="4.0" left="4.0" right="4.0" />
+         </GridPane.margin>
+      </Button>
+      <TextField fx:id="txtBirthPlace" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="4.0" right="4.0" />
+         </GridPane.margin>
+      </TextField>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <ComboBox fx:id="dropDownBirthDay" prefHeight="25.0" prefWidth="68.0" />
+            <ComboBox fx:id="dropDownBirthMonth" prefHeight="25.0" prefWidth="69.0" />
+            <ComboBox fx:id="dropDownBirthYear" prefWidth="150.0" />
+         </children>
+         <GridPane.margin>
+            <Insets left="4.0" right="4.0" />
+         </GridPane.margin>
+      </HBox>
+      <Label text="Ihre Klasse:" GridPane.halignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label text="Ihr Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label text="Ihr Geburtsdatum:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <VBox nodeOrientation="RIGHT_TO_LEFT" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+         <children>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Ihr Geburtsort:" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="(Nur erste drei Zeichen)" textAlignment="RIGHT">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <ComboBox fx:id="dropDownCourse" maxWidth="9999.0" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="4.0" right="4.0" />
+         </GridPane.margin>
+      </ComboBox>
+      <ComboBox fx:id="dropDownName" maxWidth="9999.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="4.0" right="4.0" />
+         </GridPane.margin>
+      </ComboBox>
+   </children>
+</GridPane>
