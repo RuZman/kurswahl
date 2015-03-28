@@ -1,5 +1,7 @@
 package de.ruzman.kurswahl;
 
+import io.datafx.controller.injection.scopes.ApplicationScoped;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -9,6 +11,7 @@ import java.sql.SQLException;
  * @author Zoltan Ruzman
  * @version 1.0.0
  */
+@ApplicationScoped
 public class DBJahrgang extends DBVerbindung {
 	private DBSchueler schueler;
 

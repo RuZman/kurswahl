@@ -1,11 +1,9 @@
 package de.ruzman.kurswahl.controller;
 
-import static io.datafx.controller.context.ApplicationContext.getInstance;
 import static javafx.collections.FXCollections.observableArrayList;
 import static javafx.scene.paint.Color.BLACK;
 import static javafx.scene.paint.Color.RED;
 import io.datafx.controller.FXMLController;
-import io.datafx.controller.context.ApplicationContext;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -15,13 +13,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import de.ruzman.kurswahl.DBJahrgang;
 
 @FXMLController("../fxml/Login.fxml")
 public class LoginController {
-	private ApplicationContext context = getInstance();
-	private DBJahrgang dbJahrgang;
+	@Inject private DBJahrgang dbJahrgang;
 
 	@FXML private Label courseLabel;
 	@FXML private Label nameLabel;
@@ -40,9 +38,7 @@ public class LoginController {
 	@FXML private Button loginButton;
 
 	@PostConstruct
-	public void initialize() {
-		dbJahrgang = context.getRegisteredObject(DBJahrgang.class);
-
+	public void init() {
 		courseComboBox.getItems().addAll(observableArrayList(dbJahrgang.gibKurse()));
 		courseComboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override

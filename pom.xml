@@ -58,6 +58,11 @@
 			<artifactId>flow</artifactId>
 			<version>8.0b9</version>
 		</dependency>
+		<dependency>
+			<groupId>io.datafx</groupId>
+			<artifactId>injection</artifactId>
+			<version>8.0b9</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
