@@ -1,9 +1,14 @@
-package de.ruzman.kurswahl11;
+package de.ruzman;
 
-import io.datafx.controller.injection.scopes.ApplicationScoped;
+import static de.ruzman.kurswahl13.Konfig.SCHUELER_GEBDATUM;
+import static de.ruzman.kurswahl13.Konfig.SCHUELER_KLASSE;
+import static de.ruzman.kurswahl13.Konfig.SCHUELER_NAME;
+import static de.ruzman.kurswahl13.Konfig.SCHUELER_TABELLE;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import de.ruzman.kurswahl13.DBSchueler;
+import de.ruzman.kurswahl13.Konfig;
 
 /**
  * Enthält Operationen, die im Zusamenhang mit der Jahrgangstufe stehen.
@@ -11,9 +16,16 @@ import java.sql.SQLException;
  * @author Zoltan Ruzman
  * @version 1.0.0
  */
-@ApplicationScoped
 public class DBJahrgang extends DBVerbindung {
+	private static final String SELECT_JAHRE = "SELECT RIGHT(" + SCHUELER_GEBDATUM + ",4) FROM " + SCHUELER_TABELLE
+			+ " GROUP BY RIGHT(" + SCHUELER_GEBDATUM + ",4)";
+	private static final String SELECT_KURSE = "SELECT " + SCHUELER_KLASSE + " FROM " + SCHUELER_TABELLE + " GROUP BY "
+			+ SCHUELER_KLASSE + " ORDER BY " + SCHUELER_KLASSE;
+	private static final String SELECT_NAMEN = "SELECT " + SCHUELER_NAME + " FROM " + SCHUELER_TABELLE + " WHERE "
+			+ SCHUELER_KLASSE + " LIKE ?" + " GROUP BY " + SCHUELER_NAME + " ORDER BY 1";
+
 	private DBSchueler schueler;
+	private DBLogin login;
 
 	/**
 	 * Konstruktor der Klasse DBJahrgang.
@@ -27,6 +39,7 @@ public class DBJahrgang extends DBVerbindung {
 	 */
 	private void initialisiere() {
 		schueler = new DBSchueler();
+		login = new DBLogin(schueler);
 	}
 
 	/**
@@ -37,9 +50,8 @@ public class DBJahrgang extends DBVerbindung {
 	 */
 	public String[] gibJahre() {
 		try {
-			// SQL-Statment:
-			rs = stmt.executeQuery("SELECT RIGHT(" + Konfig.SCHUELER_GEBDATUM + ",4) AS jahr FROM "
-					+ Konfig.SCHUELER_TABELLE + " GROUP BY RIGHT(" + Konfig.SCHUELER_GEBDATUM + ",4) ORDER BY jahr");
+			stmt = con.prepareStatement(SELECT_JAHRE);
+			rs = stmt.executeQuery();
 
 		} catch (SQLException ex) {
 			System.out.println("" + ex);
@@ -56,10 +68,8 @@ public class DBJahrgang extends DBVerbindung {
 	 */
 	public String[] gibKurse() {
 		try {
-			// SQL-Statment:
-			rs = stmt.executeQuery("SELECT " + Konfig.SCHUELER_KLASSE + " FROM " + Konfig.SCHUELER_TABELLE
-					+ " GROUP BY " + Konfig.SCHUELER_KLASSE + " ORDER BY " + Konfig.SCHUELER_KLASSE);
-
+			stmt = con.prepareStatement(SELECT_KURSE);
+			rs = stmt.executeQuery();
 		} catch (SQLException ex) {
 			System.out.println("" + ex);
 		}
@@ -74,13 +84,11 @@ public class DBJahrgang extends DBVerbindung {
 	 * @return Namen eines Kurses
 	 */
 	public String[] gibNamen() {
-		ResultSet rs = null;
 		try {
 			// SQL-Statment:
-			rs = stmt.executeQuery("SELECT " + Konfig.SCHUELER_NAME + " FROM " + Konfig.SCHUELER_TABELLE + " WHERE "
-					+ Konfig.SCHUELER_KLASSE + " LIKE '%" + schueler.gibKurs() + "%'" + " GROUP BY "
-					+ Konfig.SCHUELER_NAME + " ORDER BY 1");
-
+			stmt = con.prepareStatement(SELECT_NAMEN);
+			stmt.setString(1, "%" + schueler.gibKurs() + "%");
+			rs = stmt.executeQuery();
 		} catch (SQLException ex) {
 			System.out.println("" + ex);
 		}
@@ -95,6 +103,10 @@ public class DBJahrgang extends DBVerbindung {
 	 */
 	public DBSchueler gibSchueler() {
 		return schueler;
+	}
+
+	public DBLogin gibLogin() {
+		return login;
 	}
 
 	/**

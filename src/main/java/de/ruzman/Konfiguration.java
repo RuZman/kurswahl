@@ -1,9 +1,12 @@
 package de.ruzman;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 public class Konfiguration {
 	// Instanz der Klasse Konfiguration:
 	private static Konfiguration instanz;
+	private File JAR_DIR;
 
 	// Enthält alle informativen Zeilen der Konfigurationsdatei:
 	private ArrayList<String> txtKonf;
@@ -24,7 +28,13 @@ public class Konfiguration {
 	 * Konstruktor der Klasse Konfiguration.
 	 */
 	private Konfiguration(String dateiName) {
-		initalisiere(dateiName);
+		try {
+			JAR_DIR = new File(URLDecoder.decode(Konfiguration.class.getProtectionDomain().getCodeSource()
+					.getLocation().getPath(), "UTF-8"));
+			initalisiere(dateiName);
+		} catch (UnsupportedEncodingException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	/**
@@ -103,16 +113,25 @@ public class Konfiguration {
 	 *             Falls die Datei nicht gefunden wird.
 	 */
 	private BufferedReader oeffneDatei(String dateiName) throws IOException {
-		// Pfad zur Jar-Datei:
-		java.net.URL url = Konfiguration.class.getResource(dateiName);
-		String[] buffer = (url.toString()).split("/");
-		buffer[buffer.length - 2] = "";
-		String pfad = "";
-		for (String s : buffer) {
-			// Löscht die URL-Informationen aus dem Pfad
-			pfad = pfad + (s.replace("jar:", "")).replace("file:", "") + "/";
+		return new BufferedReader(new InputStreamReader(new FileInputStream(getPathFromRoot("/" + dateiName))));
+	}
+
+	/**
+	 * Sucht den Ordner der JAR-Datei und fügt dann den Parameter path hinzu.
+	 * 
+	 * @param path
+	 *            Pfad, welcher hinzugefügt werden soll.
+	 * @return Pfad, ausgehend von der JAR-Datei.
+	 */
+	public String getPathFromRoot(String path) {
+		String url = null;
+
+		try {
+			url = URLDecoder.decode(JAR_DIR.getParentFile().getPath() + path, "UTF-8");
+		} catch (UnsupportedEncodingException ex) {
+			ex.printStackTrace();
 		}
-		// Öffnet einen Stream zur Datei (Zeichen in UTF-8):
-		return new BufferedReader(new InputStreamReader(new FileInputStream(pfad.replace("/", "\\")), "UTF-8"));
+
+		return url;
 	}
 }

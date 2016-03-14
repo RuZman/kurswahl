@@ -5,12 +5,11 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JComboBox;
 
-import de.ruzman.kurswahl11.DBJahrgang;
+import de.ruzman.DBJahrgang;
 
 /**
- * Das Login-Panel enthält alle Elemente, die für eine Anmeldung eines
- * Schülers nötig sind. Dazu wird aber eine Datenbankverbindung
- * vorrausgesetzt.
+ * Das Login-Panel enthält alle Elemente, die für eine Anmeldung eines Schülers
+ * nötig sind. Dazu wird aber eine Datenbankverbindung vorrausgesetzt.
  * 
  * @author Zoltan Ruzman
  * @version 1.0.0
@@ -309,7 +308,7 @@ public class Login extends javax.swing.JPanel implements Erneuerbar {
 			erfolgreich = false;
 		} else {
 			// Aufgrund von Name + Kurs -> Geburtsort überprüfen:
-			if (!jahrgang.gibSchueler().istGeburtsort(tfGeburtsort.getText())) {
+			if (!jahrgang.gibLogin().istGeburtsort(tfGeburtsort.getText())) {
 				laGeburtsort.setForeground(Color.red);
 				erfolgreich = false;
 			}
@@ -317,7 +316,7 @@ public class Login extends javax.swing.JPanel implements Erneuerbar {
 			// Aufgrund von Name + Kurs -> Geburtsdatum überprüfen:
 			String gebDatum = (String) cbTage.getSelectedItem() + "." + (String) cbMonat.getSelectedItem() + "."
 					+ (String) cbJahre.getSelectedItem();
-			if (!jahrgang.gibSchueler().istGeburtsdatum(gebDatum)) {
+			if (!jahrgang.gibLogin().istGeburtsdatum(gebDatum)) {
 				laGeburtsdatum.setForeground(Color.red);
 				erfolgreich = false;
 			}

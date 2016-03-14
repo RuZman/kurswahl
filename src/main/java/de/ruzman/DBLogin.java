@@ -1,5 +1,6 @@
 package de.ruzman;
 
+// FIXME: Konfig für 11 und 13
 import static de.ruzman.kurswahl13.Konfig.SCHUELER_GEBDATUM;
 import static de.ruzman.kurswahl13.Konfig.SCHUELER_GEBORT;
 import static de.ruzman.kurswahl13.Konfig.SCHUELER_KLASSE;
@@ -15,8 +16,8 @@ public class DBLogin extends DBVerbindung {
 			+ SCHUELER_TABELLE + " WHERE " + SCHUELER_NAME + " LIKE ? AND " + SCHUELER_KLASSE + " LIKE ? AND "
 			+ SCHUELER_GEBDATUM + " = ?";
 	private static final String SELECT_GEBURTSORT = "SELECT Count(" + SCHUELER_GEBORT + ") FROM " + SCHUELER_TABELLE
-			+ " WHERE " + SCHUELER_NAME + " LIKE ? AND " + SCHUELER_KLASSE + " LIKE ? AND (" + SCHUELER_GEBORT
-			+ " LIKE ? OR " + SCHUELER_GEBORT + " = ? )";
+			+ " WHERE " + SCHUELER_NAME + " LIKE ? AND " + SCHUELER_KLASSE + " LIKE ? AND (UPPER(" + SCHUELER_GEBORT
+			+ ") LIKE UPPER(?) OR UPPER(" + SCHUELER_GEBORT + ") = UPPER(?) )";
 
 	private DBSchueler schueler;
 

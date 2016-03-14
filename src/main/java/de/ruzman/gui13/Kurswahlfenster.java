@@ -19,8 +19,8 @@ public class Kurswahlfenster extends JFrame
 {
     // Zur Kommunikation mit einer Datenbank:
     // Darf während einer Kurswahl nicht geändert werden! -> final
-    private static final de.ruzman.kurswahl13.DBJahrgang jahrgang =
-            new de.ruzman.kurswahl13.DBJahrgang();
+    private static final de.ruzman.DBJahrgang jahrgang =
+            new de.ruzman.DBJahrgang();
     private static final de.ruzman.kurswahl13.DBSchueler schueler =
             jahrgang.gibSchueler();
 
@@ -118,7 +118,7 @@ public class Kurswahlfenster extends JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static de.ruzman.kurswahl13.DBJahrgang gibDBJahrgang()
+    public static de.ruzman.DBJahrgang gibDBJahrgang()
     {
         return jahrgang;
     }
