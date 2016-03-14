@@ -1,4 +1,4 @@
-package de.ruzman.kurswahl;
+package de.ruzman;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -14,8 +14,6 @@ import java.util.ArrayList;
  * @version 1.0.0
  */
 public class Konfiguration {
-	// Name der Konfigurationsdatei:
-	private final String DATEI_NAME = "konfig.ini";
 	// Instanz der Klasse Konfiguration:
 	private static Konfiguration instanz;
 
@@ -25,19 +23,19 @@ public class Konfiguration {
 	/**
 	 * Konstruktor der Klasse Konfiguration.
 	 */
-	private Konfiguration() {
-		initalisiere();
+	private Konfiguration(String dateiName) {
+		initalisiere(dateiName);
 	}
 
 	/**
 	 * Initialisierung der Konfiguration.
 	 */
-	private void initalisiere() {
+	private void initalisiere(String dateiName) {
 		txtKonf = new ArrayList<String>();
 
 		try {
 			// Stream öffnen:
-			BufferedReader input = oeffneDatei(DATEI_NAME);
+			BufferedReader input = oeffneDatei(dateiName);
 
 			// Stream in eine ArrayList packen:
 			leseDateiEin(input);
@@ -51,10 +49,10 @@ public class Konfiguration {
 	 *
 	 * @return Instanz der Klasse Konfiguration.
 	 */
-	public static Konfiguration gibInstanz() {
+	public static Konfiguration gibInstanz(String dateiName) {
 		// Wenn noch keine Instanz ezestiert, eine erzeugen:
 		if (instanz == null) {
-			instanz = new Konfiguration();
+			instanz = new Konfiguration(dateiName);
 		}
 		return instanz;
 	}

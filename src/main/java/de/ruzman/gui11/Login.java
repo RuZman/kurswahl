@@ -1,11 +1,11 @@
-package de.ruzman.gui;
+package de.ruzman.gui11;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JComboBox;
 
-import de.ruzman.kurswahl.DBJahrgang;
+import de.ruzman.kurswahl11.DBJahrgang;
 
 /**
  * Das Login-Panel enthält alle Elemente, die für eine Anmeldung eines

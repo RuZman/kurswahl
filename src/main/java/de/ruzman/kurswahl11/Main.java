@@ -1,4 +1,4 @@
-package de.ruzman.kurswahl;
+package de.ruzman.kurswahl11;
 
 /**
  * Startklasse für das Kurswahlprogramm.
@@ -22,7 +22,7 @@ public class Main
             public void run()
             {
                 // Ruft das Kurswahlfenster auf und macht es sichtbar:
-                new de.ruzman.gui.Kurswahlfenster().setVisible(true);
+                new de.ruzman.gui11.Kurswahlfenster().setVisible(true);
             }
         });
     }

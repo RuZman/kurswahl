@@ -1,4 +1,4 @@
-package de.ruzman.kurswahl;
+package de.ruzman.kurswahl11;
 
 import io.datafx.controller.injection.scopes.ApplicationScoped;
 

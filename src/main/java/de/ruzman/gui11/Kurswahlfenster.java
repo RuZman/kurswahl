@@ -1,4 +1,4 @@
-package de.ruzman.gui;
+package de.ruzman.gui11;
 
 import java.awt.*;
 import javax.swing.*;
@@ -15,9 +15,9 @@ public class Kurswahlfenster extends JFrame
 {
     // Zur Kommunikation mit einer Datenbank:
     // Darf während einer Kurswahl nicht geändert werden! -> final
-    private static final de.ruzman.kurswahl.DBJahrgang jahrgang =
-            new de.ruzman.kurswahl.DBJahrgang();
-    private static final de.ruzman.kurswahl.DBSchueler schueler =
+    private static final de.ruzman.kurswahl11.DBJahrgang jahrgang =
+            new de.ruzman.kurswahl11.DBJahrgang();
+    private static final de.ruzman.kurswahl11.DBSchueler schueler =
             jahrgang.gibSchueler();
 
     // Zähler für den nächsten JPanel, die angezeigt werden soll:
@@ -114,12 +114,12 @@ public class Kurswahlfenster extends JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static de.ruzman.kurswahl.DBJahrgang gibDBJahrgang()
+    public static de.ruzman.kurswahl11.DBJahrgang gibDBJahrgang()
     {
         return jahrgang;
     }
 
-    public static de.ruzman.kurswahl.DBSchueler gibDBSchueler()
+    public static de.ruzman.kurswahl11.DBSchueler gibDBSchueler()
     {
         return schueler;
     }

@@ -1,6 +1,6 @@
-package de.ruzman.kurswahl;
+package de.ruzman.kurswahl11;
 
-import static de.ruzman.kurswahl.Konfig.DATENBANK_PFAD;
+import static de.ruzman.kurswahl11.Konfig.DATENBANK_PFAD;
 import static net.ucanaccess.jdbc.UcanaccessDriver.URL_PREFIX;
 
 import java.sql.Connection;
