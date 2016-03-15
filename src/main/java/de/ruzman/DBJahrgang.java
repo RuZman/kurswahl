@@ -7,7 +7,6 @@ import static de.ruzman.kurswahl13.Konfig.SCHUELER_TABELLE;
 
 import java.sql.SQLException;
 
-import de.ruzman.kurswahl13.DBSchueler;
 import de.ruzman.kurswahl13.Konfig;
 
 /**
@@ -25,21 +24,12 @@ public class DBJahrgang extends DBVerbindung {
 			+ SCHUELER_KLASSE + " LIKE ?" + " GROUP BY " + SCHUELER_NAME + " ORDER BY 1";
 
 	private DBSchueler schueler;
-	private DBLogin login;
 
 	/**
 	 * Konstruktor der Klasse DBJahrgang.
 	 */
-	public DBJahrgang() {
-		initialisiere();
-	}
-
-	/**
-	 * Initialisierung von der Klasse DBJahrgang.
-	 */
-	private void initialisiere() {
-		schueler = new DBSchueler();
-		login = new DBLogin(schueler);
+	public DBJahrgang(DBSchueler schueler) {
+		this.schueler = schueler;
 	}
 
 	/**
@@ -103,10 +93,6 @@ public class DBJahrgang extends DBVerbindung {
 	 */
 	public DBSchueler gibSchueler() {
 		return schueler;
-	}
-
-	public DBLogin gibLogin() {
-		return login;
 	}
 
 	/**

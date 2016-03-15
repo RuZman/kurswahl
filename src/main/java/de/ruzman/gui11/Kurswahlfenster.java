@@ -8,6 +8,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import de.ruzman.DBJahrgang;
+
 /**
  * Das Kurswahlfenster enthält alle grafischen Komponenten, die für das
  * Kurswahlprogramm benötigt werden. Zudem befindet sich die Main-Methode in
@@ -19,7 +21,7 @@ import javax.swing.UIManager;
 public class Kurswahlfenster extends JFrame {
 	// Zur Kommunikation mit einer Datenbank:
 	// Darf während einer Kurswahl nicht geändert werden! -> final
-	private static final de.ruzman.DBJahrgang jahrgang = new de.ruzman.DBJahrgang();
+	private static final DBJahrgang jahrgang = new DBJahrgang(new DBResultat11());
 	private static final de.ruzman.kurswahl11.DBSchueler schueler = jahrgang.gibSchueler();
 
 	// Zähler für den nächsten JPanel, die angezeigt werden soll:

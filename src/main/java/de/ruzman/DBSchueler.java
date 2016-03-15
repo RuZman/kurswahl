@@ -1,6 +1,5 @@
-package de.ruzman.kurswahl13;
+package de.ruzman;
 
-import static de.ruzman.kurswahl13.Konfig.ERGENIS_TABELLE;
 import static de.ruzman.kurswahl13.Konfig.KURS_FACHBEZEICHNUNG;
 import static de.ruzman.kurswahl13.Konfig.KURS_KLASSENNAMEN;
 import static de.ruzman.kurswahl13.Konfig.KURS_KURSSTUNDEN;
@@ -8,10 +7,15 @@ import static de.ruzman.kurswahl13.Konfig.KURS_LEHRER;
 import static de.ruzman.kurswahl13.Konfig.KURS_SCHULERNAMEN;
 import static de.ruzman.kurswahl13.Konfig.KURS_SCHULFORMEN;
 import static de.ruzman.kurswahl13.Konfig.KURS_TABELLE;
+import static de.ruzman.kurswahl13.Konfig.SCHUELER_GEBDATUM;
+import static de.ruzman.kurswahl13.Konfig.SCHUELER_GEBORT;
+import static de.ruzman.kurswahl13.Konfig.SCHUELER_KLASSE;
+import static de.ruzman.kurswahl13.Konfig.SCHUELER_NAME;
+import static de.ruzman.kurswahl13.Konfig.SCHUELER_TABELLE;
 
 import java.sql.SQLException;
 
-import de.ruzman.DBVerbindung;
+import de.ruzman.kurswahl13.Konfig;
 
 /**
  * Enthält Operationen, die im Zusamenhang mit einem einzelnen Schüler stehen.
@@ -19,7 +23,13 @@ import de.ruzman.DBVerbindung;
  * @author Zoltan Ruzman
  * @version 1.0.0
  */
-public class DBSchueler extends DBVerbindung {
+public abstract class DBSchueler extends DBVerbindung {
+	private static final String SELECT_GEBURTSDATUM = "SELECT Count(" + SCHUELER_GEBDATUM + ") FROM "
+			+ SCHUELER_TABELLE + " WHERE " + SCHUELER_NAME + " LIKE ? AND " + SCHUELER_KLASSE + " LIKE ? AND "
+			+ SCHUELER_GEBDATUM + " = ?";
+	private static final String SELECT_GEBURTSORT = "SELECT Count(" + SCHUELER_GEBORT + ") FROM " + SCHUELER_TABELLE
+			+ " WHERE " + SCHUELER_NAME + " LIKE ? AND " + SCHUELER_KLASSE + " LIKE ? AND (UPPER(" + SCHUELER_GEBORT
+			+ ") LIKE UPPER(?) OR UPPER(" + SCHUELER_GEBORT + ") = UPPER(?) )";
 	private static final String SELECT_FACH = "SELECT Count(" + KURS_FACHBEZEICHNUNG + ") FROM " + Konfig.KURS_TABELLE
 			+ " WHERE " + KURS_SCHULERNAMEN + " LIKE ? AND " + KURS_KLASSENNAMEN + " LIKE ? AND "
 			+ KURS_FACHBEZEICHNUNG + " LIKE ?";
@@ -44,12 +54,66 @@ public class DBSchueler extends DBVerbindung {
 			+ " Kurs WHERE Fachrichtung.Schulform = Kurs.USFBKSchueler AND " + KURS_SCHULERNAMEN + " LIKE ? AND "
 			+ KURS_KLASSENNAMEN + " LIKE ? GROUP BY Fachrichtung";
 
-	private String kurs;
-	private String name;
-	private String fachrichtung;
+	protected String kurs;
+	protected String name;
+	protected String fachrichtung;
 
 	// Ob der letzte SQL-Update erfolgreich verlief:
-	private boolean gespeichert;
+	protected boolean gespeichert;
+
+	/**
+	 * Gibt zurück, ob das übergebene Geburtsdatum mit dem in der Datenbank
+	 * übereinstimmt.
+	 * 
+	 * @param gebDatum
+	 *            Geburtsdatum, des überprüft werden soll.
+	 * @return True, das Geburtsdatum stimmt überein.
+	 */
+	public boolean istGeburtsdatum(String gebDatum) {
+		try {
+			stmt = con.prepareStatement(SELECT_GEBURTSDATUM);
+			stmt.setString(1, name);
+			stmt.setString(2, "%" + kurs + "%");
+			stmt.setString(3, gebDatum);
+			rs = stmt.executeQuery();
+			rs.next();
+			// Wenn die Anzahl der gefundenen Treffer gleich 1 ist, ist das
+			// Geburtsdatum korrekt:
+			return rs.getInt(1) == 1;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
+
+	/**
+	 * Gibt zurück, ob die ersten 3 Zeichen des übergebenen Geburtortes mit dem
+	 * in der Datenbank übereinstimmen.
+	 * 
+	 * @param gebOrt
+	 *            Geburtsort, des überprüft werden soll.
+	 * @return True, wenn die ersten 3 Zeichen des Geburtortes übereinstimmen
+	 */
+	public boolean istGeburtsort(String gebOrt) {
+		try {
+			// Überprüft, ob mindestens 3 Zeichen eingeben werden.
+			if (gebOrt.length() > 2) {
+				stmt = con.prepareStatement(SELECT_GEBURTSORT);
+				stmt.setString(1, name);
+				stmt.setString(2, "%" + kurs + "%");
+				stmt.setString(3, gebOrt + "%");
+				stmt.setString(4, gebOrt);
+				rs = stmt.executeQuery();
+				rs.next();
+				// Wenn die Anzahl der gefundenen Treffer gleich 1 ist, dann
+				// stimmen die ersten 3 Zeichen des Geburtortes überein:
+				return rs.getInt(1) == 1;
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
 
 	/**
 	 * Prüft nach, ob der Schüler ein bestimmtes Fach belegt hat.
@@ -105,15 +169,6 @@ public class DBSchueler extends DBVerbindung {
 	}
 
 	/**
-	 * Überprüft, ob das letze SQL-Update gespeichert wurde.
-	 *
-	 * @return True, falls das letze Update gespeichert wurde.
-	 */
-	public boolean istGespeichert() {
-		return gespeichert;
-	}
-
-	/**
 	 * Gibt den Kurs/die Klasse des Schülers zurück, in der er sich befindet.
 	 *
 	 * @return Kurs des Schülers
@@ -141,7 +196,7 @@ public class DBSchueler extends DBVerbindung {
 			// Lehrer Kürzel:
 			return rs.getString(1).replace("'", "");
 		} catch (SQLException ex) {
-			System.out.println("3: " + ex);
+			// ex.printStackTrace();
 		}
 		return "";
 	}
@@ -193,7 +248,8 @@ public class DBSchueler extends DBVerbindung {
 			// Kursbezeichnung:
 			return rs.getString(1).replace("'", "");
 		} catch (SQLException ex) {
-			System.out.println("7: " + ex);
+			// FIXME: Gibt Probleme bei Leuten ohne Rechnungswesen
+			// ex.printStackTrace();
 		}
 		return "";
 	}
@@ -283,230 +339,20 @@ public class DBSchueler extends DBVerbindung {
 	}
 
 	/**
-	 * Generiert eine SQL-Anweisung für den Update.
+	 * Überprüft, ob das letze SQL-Update gespeichert wurde.
 	 *
-	 * @param updates
-	 *            String-Array mit {[Spaltenname], [Inhalt]}
-	 * @return True, wenn das Update geglückt ist.
+	 * @return True, falls das letze Update gespeichert wurde.
 	 */
-	private boolean update(String[][] updates) {
-		try {
-			try {
-				// Versucht einen Schüler anzulegen:
-				stmt = con.prepareStatement("INSERT INTO " + ERGENIS_TABELLE + " (Name, Kurs) VALUES (?, ?)");
-				stmt.setString(1, name);
-				stmt.setString(2, kurs);
-				stmt.executeUpdate();
-			} catch (SQLException e) {
-				// Nicht schlimm, da ein Benutzer schon angelegt ist!
-			}
-			// +------------- Anfang: Generiert Update Anweisung
-			// ----------------
-			String update = "";
-			for (int i = 0; i < updates.length; i++) {
-				if (i == 0) {
-					update = update + updates[i][0] + "='" + updates[i][1] + "'";
-				} else {
-					update += ", " + updates[i][0] + "='" + updates[i][1] + "'";
-				}
-			}
-			stmt = con.prepareStatement("UPDATE " + Konfig.ERGENIS_TABELLE + " SET " + update
-					+ " WHERE Name=? AND Kurs=?");
-			stmt.setString(1, name);
-			stmt.setString(2, kurs);
-			stmt.executeUpdate();
-			// +------------- Ende: Generiert Update Anweisung
-			// ------------------
-			return true;
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			return false;
-		}
+	public boolean istGespeichert() {
+		return gespeichert;
 	}
 
-	/**
-	 * Updateanweisung, um alle Fächer gleichzeitig zu ergänzen. Damit wird
-	 * vermieden, dass Daten nur teilweise ankommen und somit nicht erkannt
-	 * wird, ob das Update geglückt ist.
-	 *
-	 * @param powi
-	 *            Ob das Fach Politik und Wirtschaft belegt wird
-	 * @param powi_bili
-	 *            Ob das Fach Politik und Wirtschaft Bilingual belegt wird
-	 * @param rewe
-	 *            Ob das Fach Rechnungswesen belegt wird
-	 * @param daten
-	 *            Ob das Fach Datenverarbeitung belegt wird
-	 * @param gesch2
-	 *            Ob das Fach Geschichte zweistündig belegt wird
-	 * @param gesch3
-	 *            Ob das Fach Geschichte dreistündig belegt wird
-	 * @param powi2
-	 *            Ob das Fach Politik und Wirtschaft zweistündig belegt wird
-	 * @param powi3
-	 *            Ob das Fach Politik und Wirtschaft dreistündig belegt wird
-	 * @param reli_kath
-	 *            Ob das Fach kath. Religion belegt wird
-	 * @param reli_evang
-	 *            Ob das Fach eveng. Relegion belegt wird
-	 * @param sport1
-	 *            Erstwahl: Sportkurs, der belegt wird
-	 * @param sport2
-	 *            Zweitwahl: Sprtkurs, der belegt wird
-	 * @param stern
-	 *            Ob der Sternchenkurs schon erfüllt wurde
-	 * @param reli_auswahl
-	 *            Welche Relegion gewählt wurde
-	 * @param zusatzKurs
-	 *            Welcher zusätzlicher Kurs gewählt wurde
-	 * @param abwahlKurs
-	 *            Welcher zusätzlicher Kurs abgewählt wurde
-	 * @param fs12
-	 *            Ob in der 12. Klasse eine Fremdsprache belgt wurde
-	 * @param fs13
-	 *            Ob in der 13. Klasse eine Fremdschprache belegt wurde
-	 * @return
-	 */
-	public boolean update(boolean powi, boolean powi_bili, String wahlkurs, boolean rewe, boolean daten,
-			boolean gesch2, boolean gesch3, boolean powi2, boolean powi3, boolean reli_kath, boolean reli_evang,
-			String sport1, String sport2, boolean keinWahlkurs, String reli_auswahl, String zusatzKurs,
-			String abwahlKurs, boolean fs12, boolean fs13) {
-		// "0" bedeutet in Access kein Haken beim CheckBox-Typ:
-		String intPowi = "0";
-		String intPowi_bili = "0";
-
-		String intRewe = "0";
-		String intDaten = "0";
-
-		String intGesch2 = "0";
-		String intGesch3 = "0";
-		String intPowi2 = "0";
-		String intPowi3 = "0";
-
-		String intReli_12 = "0";
-		String intReli_13 = "0";
-
-		String intFS12 = "0";
-		String intFS13 = "0";
-
-		String intWahlkurs = "0";
-
-		String intSchuleVerlassen = "0";
-		String intKlasseWiederholen = "0";
-
-		// "-1" bedeutet, dass die Kurse in Acces ausgewählt wurden:
-		// Zusätzliche Kurse:
-		if (powi)
-			intPowi = "-1";
-		if (powi_bili)
-			intPowi_bili = "-1";
-
-		// Wirtschaft:
-		if (rewe)
-			intRewe = "-1";
-		if (daten)
-			intDaten = "-1";
-
-		// Umwahl:
-		if (gesch2)
-			intGesch2 = "-1";
-		if (gesch3)
-			intGesch3 = "-1";
-		if (powi2)
-			intPowi2 = "-1";
-		if (powi3)
-			intPowi3 = "-1";
-
-		// Sprachen:
-		if (fs12)
-			intFS12 = "-1";
-		if (fs13)
-			intFS13 = "-1";
-
-		// Sternchenkurs:
-		if (keinWahlkurs)
-			intWahlkurs = "-1";
-
-		// Ermittelt, wie viele Stunden PoWi belegt wurde:
-		if (powi || powi_bili) {
-			if ((gibStunden("Politik und Wirtschaft") == 2 || powi2) && !powi3 || powi_bili) {
-				intPowi2 = "-1";
-				intPowi3 = "0";
-			} else {
-				intPowi3 = "-1";
-			}
-		}
-
-		// Ermittelt, ob Religion in der 13. Klasse belegt wird:
-		if (belegtFach("%kath%") || belegtFach("%evang%") || belegtFach("%ethik%")) {
-			intReli_12 = "-1";
-			if (reli_kath || reli_evang)
-				intReli_13 = "0";
-			else
-				intReli_13 = "-1";
-		}
-
-		// Update Anweisung:
-		if (update(new String[][] {
-				// Schülerdaten:
-				{ "Name", name },
-				{ "Fachrichtung", fachrichtung },
-				{ "Kurs", kurs },
-				{ "LK", gibLeistungskurs() },
-
-				// Sternchenkurs:
-				{ "Will_KeinWahlpflichtkurs", intWahlkurs },
-				{ "Wahlpflichtkurs", wahlkurs },
-
-				// Politik:
-				{ "powi_l", gibLehrer("Politik und Wirtschaft") }, { "powi_k", gibKurs("Politik und Wirtschaft") },
-				{ "PoWi", intPowi },
-				{ "PoWi_bili", intPowi_bili },
-				{ "Will_PoWi2", intPowi2 },
-				{ "Will_PoWi3", intPowi3 },
-
-				// Geschichte:
-				{ "gesch_l", gibLehrer("Geschichte") }, { "gesch_k", gibKurs("Geschichte") },
-				{ "Will_Geschichte2", intGesch2 },
-				{ "Will_Geschichte3", intGesch3 },
-
-				// Rechungswesen:
-				{ "rewe_l", gibLehrer("Rechnungswesen") }, { "rewe_k", gibKurs("Rechnungswesen") },
-				{ "Rewe", intRewe },
-
-				// Datenverarbeitung:
-				{ "daten_l", gibLehrer("Datenverarbeitung") }, { "daten_k", gibKurs("Datenverarbeitung") },
-				{ "Daten", intDaten },
-
-				// Religion:
-				{ "Reli_12", intReli_12 }, { "Reli_13", intReli_13 },
-
-				// Sprachen:
-				{ "Hat_FS_12", intFS12 }, { "Hat_FS_13", intFS13 },
-
-				// Sportkurse:
-				{ "Sport1", sport1 }, { "Sport2", sport2 },
-
-				// Zusatz:
-				{ "ZusatzWahl", zusatzKurs }, { "ZusatzAbwahl", abwahlKurs },
-
-				// Sonstiges:
-				{ "klasseWiederholen", "0" }, { "schuleVerlassen", "0" } })) {
-			// Update gelungen:
-			gespeichert = true;
-		} else {
-			// Update fehlgeschlagen:
-			gespeichert = false;
-		}
-
-		return true;
-	}
+	protected abstract boolean update(String[][] updates);
 
 	public void wiederholen() {
 		if (update(new String[][] {
 				// Schülerdaten:
 				{ "Name", name.replace("_", "’") }, { "Fachrichtung", fachrichtung }, { "Kurs", kurs },
-				{ "LK", gibLeistungskurs() },
 
 				// Klasse wiederholen:
 				{ "klasseWiederholen", "-1" }, { "schuleVerlassen", "0" } })) {
@@ -521,7 +367,7 @@ public class DBSchueler extends DBVerbindung {
 	public void verlassen() {
 		if (update(new String[][] {
 				// Schülerdaten:
-				{ "Name", name }, { "Fachrichtung", fachrichtung }, { "Kurs", kurs }, { "LK", gibLeistungskurs() },
+				{ "Name", name.replace("_", "’") }, { "Fachrichtung", fachrichtung }, { "Kurs", kurs },
 
 				// Schule verlassen:
 				{ "klasseWiederholen", "0" }, { "schuleVerlassen", "-1" } })) {
@@ -532,4 +378,9 @@ public class DBSchueler extends DBVerbindung {
 			gespeichert = false;
 		}
 	}
+
+	public abstract boolean update(boolean powi, boolean powi_bili, String wahlkurs, boolean rewe, boolean daten,
+			boolean gesch2, boolean gesch3, boolean powi2, boolean powi3, boolean reli_kath, boolean reli_evang,
+			String sport1, String sport2, boolean keinWahlkurs, String reli_auswahl, String zusatzKurs,
+			String abwahlKurs, boolean fs12, boolean fs13);
 }
