@@ -1,6 +1,5 @@
 package de.ruzman.gui13;
 
-
 /**
  * Das Kurswahlfenster enthält alle Elemente, die ein Schüler benötigt, um seine
  * Kurse wählen zu können. Für die Kurswahl wird eine Datenbankverbindung
@@ -254,7 +253,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 
 		add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, 70));
 
-		jLabel1.setText("v1.2.0");
+		jLabel1.setText("v1.6.0");
 		add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, -1));
 
 		jPanel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
