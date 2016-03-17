@@ -16,8 +16,8 @@ import de.ruzman.kurswahl13.Konfig;
  * @version 1.0.0
  */
 public class DBJahrgang extends DBVerbindung {
-	private static final String SELECT_JAHRE = "SELECT RIGHT(" + SCHUELER_GEBDATUM + ",4) FROM " + SCHUELER_TABELLE
-			+ " GROUP BY RIGHT(" + SCHUELER_GEBDATUM + ",4)";
+	private static final String SELECT_JAHRE = "SELECT DISTINCT RIGHT(" + SCHUELER_GEBDATUM + ",4) AS JAHR FROM "
+			+ SCHUELER_TABELLE + " ORDER BY JAHR DESC";
 	private static final String SELECT_KURSE = "SELECT " + SCHUELER_KLASSE + " FROM " + SCHUELER_TABELLE + " GROUP BY "
 			+ SCHUELER_KLASSE + " ORDER BY " + SCHUELER_KLASSE;
 	private static final String SELECT_NAMEN = "SELECT " + SCHUELER_NAME + " FROM " + SCHUELER_TABELLE + " WHERE "
