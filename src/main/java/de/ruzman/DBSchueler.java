@@ -3,6 +3,7 @@ package de.ruzman;
 import static de.ruzman.kurswahl13.Konfig.ERGENIS_TABELLE;
 import static de.ruzman.kurswahl13.Konfig.KURS_FACHBEZEICHNUNG;
 import static de.ruzman.kurswahl13.Konfig.KURS_KLASSENNAMEN;
+import static de.ruzman.kurswahl13.Konfig.KURS_KURSBEZEICHNUNG;
 import static de.ruzman.kurswahl13.Konfig.KURS_KURSSTUNDEN;
 import static de.ruzman.kurswahl13.Konfig.KURS_LEHRER;
 import static de.ruzman.kurswahl13.Konfig.KURS_SCHULERNAMEN;
@@ -49,11 +50,11 @@ public abstract class DBSchueler extends DBVerbindung {
 			+ " WHERE " + KURS_SCHULERNAMEN + " LIKE ? AND " + KURS_KLASSENNAMEN + " LIKE ? AND "
 			+ KURS_FACHBEZEICHNUNG + "=?";
 	private static final String SELECT_FACHRICHTUNG1 = "SELECT Fachrichtung FROM Fachrichtung, Kurs WHERE "
-			+ "Fachrichtung.Kurs = Kurs.Kursbezeichnung AND " + KURS_SCHULERNAMEN + " LIKE ? AND " + KURS_KLASSENNAMEN
-			+ " LIKE ? GROUP BY Fachrichtung";
-	private static final String SELECT_FACHRICHTUNG2 = "SELECT Fachrichtung FROM Fachrichtung,"
-			+ " Kurs WHERE Fachrichtung.Schulform = Kurs.USFBKSchueler AND " + KURS_SCHULERNAMEN + " LIKE ? AND "
+			+ "Fachrichtung.Kurs = Kurs." + KURS_KURSBEZEICHNUNG + " AND " + KURS_SCHULERNAMEN + " LIKE ? AND "
 			+ KURS_KLASSENNAMEN + " LIKE ? GROUP BY Fachrichtung";
+	private static final String SELECT_FACHRICHTUNG2 = "SELECT Fachrichtung FROM Fachrichtung,"
+			+ " Kurs WHERE Fachrichtung.Schulform = Kurs." + KURS_SCHULFORMEN + " AND " + KURS_SCHULERNAMEN
+			+ " LIKE ? AND " + KURS_KLASSENNAMEN + " LIKE ? GROUP BY Fachrichtung";
 
 	protected String kurs;
 	protected String name;
