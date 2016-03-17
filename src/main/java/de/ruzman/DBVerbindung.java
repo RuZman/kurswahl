@@ -43,6 +43,7 @@ public class DBVerbindung {
 
 	public String[] gibAusgewaehlteSpalte(ResultSet rs) {
 		try {
+			rs = stmt.executeQuery();
 			ArrayList<String> puffer = new ArrayList<String>();
 			// Ergebnisse der Select-Anweisung in ArrayList laden:
 			for (int i = 0; rs.next(); i++) {

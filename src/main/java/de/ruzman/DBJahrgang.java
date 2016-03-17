@@ -18,10 +18,10 @@ import de.ruzman.kurswahl13.Konfig;
 public class DBJahrgang extends DBVerbindung {
 	private static final String SELECT_JAHRE = "SELECT DISTINCT RIGHT(" + SCHUELER_GEBDATUM + ",4) AS JAHR FROM "
 			+ SCHUELER_TABELLE + " ORDER BY JAHR DESC";
-	private static final String SELECT_KURSE = "SELECT " + SCHUELER_KLASSE + " FROM " + SCHUELER_TABELLE + " GROUP BY "
-			+ SCHUELER_KLASSE + " ORDER BY " + SCHUELER_KLASSE;
+	private static final String SELECT_KURSE = "SELECT DISTINCT " + SCHUELER_KLASSE + " FROM " + SCHUELER_TABELLE
+			+ " ORDER BY " + SCHUELER_KLASSE;
 	private static final String SELECT_NAMEN = "SELECT " + SCHUELER_NAME + " FROM " + SCHUELER_TABELLE + " WHERE "
-			+ SCHUELER_KLASSE + " LIKE ?" + " GROUP BY " + SCHUELER_NAME + " ORDER BY 1";
+			+ SCHUELER_KLASSE + " LIKE ?" + " ORDER BY 1";
 
 	private DBSchueler schueler;
 
@@ -41,8 +41,6 @@ public class DBJahrgang extends DBVerbindung {
 	public String[] gibJahre() {
 		try {
 			stmt = con.prepareStatement(SELECT_JAHRE);
-			rs = stmt.executeQuery();
-
 		} catch (SQLException ex) {
 			System.out.println("" + ex);
 		}
@@ -59,7 +57,6 @@ public class DBJahrgang extends DBVerbindung {
 	public String[] gibKurse() {
 		try {
 			stmt = con.prepareStatement(SELECT_KURSE);
-			rs = stmt.executeQuery();
 		} catch (SQLException ex) {
 			System.out.println("" + ex);
 		}
@@ -78,7 +75,6 @@ public class DBJahrgang extends DBVerbindung {
 			// SQL-Statment:
 			stmt = con.prepareStatement(SELECT_NAMEN);
 			stmt.setString(1, "%" + schueler.gibKurs() + "%");
-			rs = stmt.executeQuery();
 		} catch (SQLException ex) {
 			System.out.println("" + ex);
 		}
