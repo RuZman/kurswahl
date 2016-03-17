@@ -3,6 +3,7 @@ package de.ruzman;
 import static de.ruzman.kurswahl11.Konfig.DATENBANK_PFAD;
 import static net.ucanaccess.jdbc.UcanaccessDriver.URL_PREFIX;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -63,7 +64,8 @@ public class DBVerbindung {
 	 */
 	private void oeffneVerbindung() {
 		try {
-			con = DriverManager.getConnection(URL_PREFIX + DATENBANK_PFAD);
+			File dbFile = new File(DATENBANK_PFAD.toString());
+			con = DriverManager.getConnection(URL_PREFIX + dbFile.getAbsolutePath());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println("Es konnte keine Verbindung zur Datenbank" + " (" + DATENBANK_PFAD
