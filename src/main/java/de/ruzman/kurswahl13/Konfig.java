@@ -43,7 +43,7 @@ public enum Konfig {
 		 * Die Zeilen in der konfig.ini sind entsprechend des Konfig-Enums
 		 * sotiert. D.h. Zeile in konfig.ini = Konfig.BEZEICHNER.oridnal().
 		 */
-		einstellung = Konfiguration.gibInstanz("konfig13.ini").gibZeile(this.ordinal());
+		einstellung = Konfiguration.gibInstanz().gibZeile(this.ordinal());
 	}
 
 	/**

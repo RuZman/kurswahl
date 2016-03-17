@@ -67,6 +67,13 @@ public class Konfiguration {
 		return instanz;
 	}
 
+	public static Konfiguration gibInstanz() {
+		if (instanz == null) {
+			instanz = new Konfiguration("konfig.ini");
+		}
+		return instanz;
+	}
+
 	/**
 	 * Gibt eine Zeile aus der Konfigurationsdatei zurück.
 	 *
