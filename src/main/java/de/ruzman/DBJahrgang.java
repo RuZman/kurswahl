@@ -1,13 +1,12 @@
 package de.ruzman;
 
+import static de.ruzman.kurswahl13.Konfig.INHALT_SPORT;
 import static de.ruzman.kurswahl13.Konfig.SCHUELER_GEBDATUM;
 import static de.ruzman.kurswahl13.Konfig.SCHUELER_KLASSE;
 import static de.ruzman.kurswahl13.Konfig.SCHUELER_NAME;
 import static de.ruzman.kurswahl13.Konfig.SCHUELER_TABELLE;
 
 import java.sql.SQLException;
-
-import de.ruzman.kurswahl13.Konfig;
 
 /**
  * Enthält Operationen, die im Zusamenhang mit der Jahrgangstufe stehen.
@@ -97,6 +96,6 @@ public class DBJahrgang extends DBVerbindung {
 	 * @return Sportkurse des Jahrgangs
 	 */
 	public String[] gibSportkurse() {
-		return Konfig.INHALT_SPORT.toString().split(",");
+		return INHALT_SPORT.toString().split(",");
 	}
 }
