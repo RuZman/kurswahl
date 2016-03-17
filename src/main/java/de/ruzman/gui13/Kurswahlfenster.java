@@ -23,7 +23,7 @@ public class Kurswahlfenster extends JFrame {
 	// Darf während einer Kurswahl nicht geändert werden! -> final
 	private static final de.ruzman.DBJahrgang jahrgang = new de.ruzman.DBJahrgang(new DBSchueler13() {
 	});
-	private static final de.ruzman.DBSchueler schueler = jahrgang.gibSchueler();
+	private static final DBSchueler13 schueler = (DBSchueler13) jahrgang.gibSchueler();
 
 	// Zähler für den nächsten JPanel, die angezeigt werden soll:
 	private int panelZeahler;
@@ -115,7 +115,7 @@ public class Kurswahlfenster extends JFrame {
 		return jahrgang;
 	}
 
-	public static de.ruzman.DBSchueler gibDBSchueler() {
+	public static DBSchueler13 gibDBSchueler() {
 		return schueler;
 	}
 

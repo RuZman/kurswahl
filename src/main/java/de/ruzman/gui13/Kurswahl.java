@@ -1,5 +1,7 @@
 package de.ruzman.gui13;
 
+import de.ruzman.kurswahl13.DBSchueler13;
+
 /**
  * Das Kurswahlfenster enthält alle Elemente, die ein Schüler benötigt, um seine
  * Kurse wählen zu können. Für die Kurswahl wird eine Datenbankverbindung
@@ -10,7 +12,7 @@ package de.ruzman.gui13;
  */
 public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 	private Kurswahlfenster fenster;
-	private de.ruzman.DBSchueler schueler;
+	private DBSchueler13 schueler;
 
 	/**
 	 * Konstruktor der Klasse Kurswahl.

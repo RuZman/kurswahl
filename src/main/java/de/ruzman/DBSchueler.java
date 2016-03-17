@@ -426,9 +426,4 @@ public abstract class DBSchueler extends DBVerbindung {
 			gespeichert = false;
 		}
 	}
-
-	public abstract boolean update(boolean powi, boolean powi_bili, String wahlkurs, boolean rewe, boolean daten,
-			boolean gesch2, boolean gesch3, boolean powi2, boolean powi3, boolean reli_kath, boolean reli_evang,
-			String sport1, String sport2, boolean keinWahlkurs, String reli_auswahl, String zusatzKurs,
-			String abwahlKurs, boolean fs12, boolean fs13);
 }
