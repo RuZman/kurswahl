@@ -1,5 +1,6 @@
 package de.ruzman;
 
+import static de.ruzman.kurswahl13.Konfig.ERGENIS_TABELLE;
 import static de.ruzman.kurswahl13.Konfig.KURS_FACHBEZEICHNUNG;
 import static de.ruzman.kurswahl13.Konfig.KURS_KLASSENNAMEN;
 import static de.ruzman.kurswahl13.Konfig.KURS_KURSSTUNDEN;
@@ -347,7 +348,54 @@ public abstract class DBSchueler extends DBVerbindung {
 		return gespeichert;
 	}
 
-	protected abstract boolean update(String[][] updates);
+	/**
+	 * Generiert eine SQL-Anweisung für den Update.
+	 *
+	 * @param updates
+	 *            String-Array mit {[Spaltenname], [Inhalt]}
+	 * @return True, wenn das Update geglückt ist.
+	 */
+	protected boolean update(String[][] updates) {
+		try {
+			stmt = con.prepareStatement("SELECT * FROM Ergebnis WHERE Name like ? and Kurs like ?");
+			stmt.setString(1, name);
+			stmt.setString(2, kurs);
+			rs = stmt.executeQuery();
+
+			// Schueler anlegen, falls es noch keinen gibt
+			if (!rs.next()) {
+				stmt = con.prepareStatement("INSERT INTO " + ERGENIS_TABELLE + " (Name, Kurs) VALUES (?, ?)");
+				stmt.setString(1, name);
+				stmt.setString(2, kurs);
+				stmt.executeUpdate();
+			}
+
+			// Anfang: Generiert Update Anweisung
+			String update = "";
+			for (int i = 0; i < updates.length; i++) {
+				if (i == 0) {
+					update = update + updates[i][0] + "='" + updates[i][1] + "'";
+				} else {
+					if (updates[i][1].equals("0") || updates[i][1].equals("-1")) {
+						update += ", " + updates[i][0] + "=" + updates[i][1] + "";
+					} else {
+						update += ", " + updates[i][0] + "='" + updates[i][1] + "'";
+					}
+				}
+			}
+
+			stmt = con.prepareStatement("UPDATE " + Konfig.ERGENIS_TABELLE + " SET " + update
+					+ " WHERE Name=? AND Kurs=?");
+			stmt.setString(1, name);
+			stmt.setString(2, kurs);
+			stmt.executeUpdate();
+			// Ende: Generiert Update Anweisung
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	public void wiederholen() {
 		if (update(new String[][] {

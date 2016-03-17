@@ -1,59 +1,8 @@
 package de.ruzman.kurswahl13;
 
-import static de.ruzman.kurswahl13.Konfig.ERGENIS_TABELLE;
-
-import java.sql.SQLException;
-
 import de.ruzman.DBSchueler;
 
 public class DBSchueler13 extends DBSchueler {
-
-	/**
-	 * Generiert eine SQL-Anweisung für den Update.
-	 *
-	 * @param updates
-	 *            String-Array mit {[Spaltenname], [Inhalt]}
-	 * @return True, wenn das Update geglückt ist.
-	 */
-	protected boolean update(String[][] updates) {
-		try {
-			try {
-				// Versucht einen Schüler anzulegen:
-				stmt = con.prepareStatement("INSERT INTO " + ERGENIS_TABELLE + " (Name, Kurs) VALUES (?, ?)");
-				stmt.setString(1, name);
-				stmt.setString(2, kurs);
-				stmt.executeUpdate();
-			} catch (SQLException e) {
-				// Nicht schlimm, da ein Benutzer schon angelegt ist!
-			}
-			// +------------- Anfang: Generiert Update Anweisung
-			// ----------------
-			String update = "";
-			for (int i = 0; i < updates.length; i++) {
-				if (i == 0) {
-					update = update + updates[i][0] + "='" + updates[i][1] + "'";
-				} else {
-					if (updates[i][1].equals("0") || updates[i][1].equals("-1")) {
-						update += ", " + updates[i][0] + "=" + updates[i][1] + "";
-					} else {
-						update += ", " + updates[i][0] + "='" + updates[i][1] + "'";
-					}
-				}
-			}
-			System.out.println(update);
-			stmt = con.prepareStatement("UPDATE " + Konfig.ERGENIS_TABELLE + " SET " + update
-					+ " WHERE Name=? AND Kurs=?");
-			stmt.setString(1, name);
-			stmt.setString(2, kurs);
-			stmt.executeUpdate();
-			// +------------- Ende: Generiert Update Anweisung
-			// ------------------
-			return true;
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			return false;
-		}
-	}
 
 	/**
 	 * Updateanweisung, um alle Fächer gleichzeitig zu ergänzen. Damit wird
@@ -149,9 +98,9 @@ public class DBSchueler13 extends DBSchueler {
 		// Update Anweisung:
 		if (update(new String[][] {
 				// Schülerdaten:
-				{ "Name", name },
+				// { "Name", name },
 				{ "Fachrichtung", fachrichtung },
-				{ "Kurs", kurs },
+				// { "Kurs", kurs },
 				{ "LK", gibLeistungskurs() },
 
 				// Sternchenkurs
