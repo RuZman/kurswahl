@@ -16,14 +16,14 @@ public class Main {
 	 * @param ars
 	 *            Es weden Argumente aus der Konsole berücksichtigt!
 	 */
-	public static void main(String[] ars) {
+	public static void main(String[] args) {
 		// FIXME: Workaround to set konfig
-		Konfiguration.gibInstanz("konfig13.ini");
+		Konfiguration.gibInstanz(args.length > 0 ? args[0] : "konfig13.ini");
 		// Führt die Anwendung in einen eigenen Thread aus:
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				// Ruft das Kurswahlfenster auf und macht es sichtbar:
-				new de.ruzman.gui13.Kurswahlfenster().setVisible(true);
+				new de.ruzman.gui13.Kurswahlfenster13().setVisible(true);
 			}
 		});
 	}

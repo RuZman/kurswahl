@@ -24,7 +24,7 @@ public class Main {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				// Ruft das Kurswahlfenster auf und macht es sichtbar:
-				new de.ruzman.gui11.Kurswahlfenster().setVisible(true);
+				new de.ruzman.gui11.Kurswahlfenster11().setVisible(true);
 			}
 		});
 	}

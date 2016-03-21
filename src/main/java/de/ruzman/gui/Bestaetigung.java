@@ -1,4 +1,4 @@
-package de.ruzman.gui11;
+package de.ruzman.gui;
 
 import java.awt.Dimension;
 import java.util.Timer;

@@ -1,4 +1,4 @@
-package de.ruzman.gui13;
+package de.ruzman.gui;
 
 /**
  * Das Objekt kann in den Ausgangszustand zurück gesetzt werden.

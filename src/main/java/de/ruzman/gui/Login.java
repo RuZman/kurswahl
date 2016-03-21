@@ -1,4 +1,4 @@
-package de.ruzman.gui13;
+package de.ruzman.gui;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -19,11 +19,14 @@ public class Login extends javax.swing.JPanel implements Erneuerbar {
 	private DBJahrgang jahrgang;
 	// Zur Kommunikation mit dem Frame:
 	private Kurswahlfenster fenster;
+	private String title;
 
 	/**
 	 * Konstruktor der Klasse Login.
 	 */
-	public Login() {
+	public Login(String title) {
+		this.title = title;
+
 		// Komponenten des Fensters initialisieren:
 		initComponents();
 		initialisiere();
@@ -352,13 +355,12 @@ public class Login extends javax.swing.JPanel implements Erneuerbar {
 	 */
 	@Override
 	public String toString() {
-		return "Kurswahl13 - Login";
+		return title;
 	}
 
 	/**
 	 * Das Loginfenster wird in den Ausgangszustand zurückversetzt.
 	 */
-	@Override
 	public void zuruecksetzen() {
 		// Kurs zurücksetzen:
 		cbKurs.setSelectedIndex(0);

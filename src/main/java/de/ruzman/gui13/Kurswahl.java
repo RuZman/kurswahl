@@ -1,5 +1,6 @@
 package de.ruzman.gui13;
 
+import de.ruzman.gui.Erneuerbar;
 import de.ruzman.kurswahl13.DBSchueler13;
 
 /**
@@ -11,7 +12,7 @@ import de.ruzman.kurswahl13.DBSchueler13;
  * @version 1.0.0
  */
 public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
-	private Kurswahlfenster fenster;
+	private Kurswahlfenster13 fenster;
 	private DBSchueler13 schueler;
 
 	/**
@@ -27,19 +28,19 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 	 * Initialisierung des Kurswahlpanels.
 	 */
 	private void initialisiere() {
-		schueler = Kurswahlfenster.gibDBSchueler();
+		schueler = (DBSchueler13) Kurswahlfenster13.gibDBJahrgang().gibSchueler();
 		cbReligion.setSize(50, 15);
 
 		// Legt den Inhalt für die Combobox ErstwahlSport fest:
-		Kurswahlfenster.loescheUndSetzeComboBox(cbErstwahl, "-Auswählen-", de.ruzman.kurswahl13.Konfig.INHALT_SPORT
+		Kurswahlfenster13.loescheUndSetzeComboBox(cbErstwahl, "-Auswählen-", de.ruzman.kurswahl13.Konfig.INHALT_SPORT
 				.toString().split(","), true);
 
 		// Legt den Inhalt für die Combobox ZweitwahlSport fest:
-		Kurswahlfenster.loescheUndSetzeComboBox(cbZweitwahl, "-Auswählen-", de.ruzman.kurswahl13.Konfig.INHALT_SPORT
+		Kurswahlfenster13.loescheUndSetzeComboBox(cbZweitwahl, "-Auswählen-", de.ruzman.kurswahl13.Konfig.INHALT_SPORT
 				.toString().split(","), true);
 
 		// Legt den Inhalt für die Combobox ErstwahlSport fest:
-		Kurswahlfenster.loescheUndSetzeComboBox(cbWahlpflicht, "-Auswählen-",
+		Kurswahlfenster13.loescheUndSetzeComboBox(cbWahlpflicht, "-Auswählen-",
 				de.ruzman.kurswahl13.Konfig.INHALT_WAHLPFLICHT.toString().split(","), true);
 	}
 
@@ -755,7 +756,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 	 * @param fenster
 	 *            Referenz zum Kurswahlfenster.
 	 */
-	public void setzeFenster(Kurswahlfenster fenster) {
+	public void setzeFenster(Kurswahlfenster13 fenster) {
 		this.fenster = fenster;
 	}
 
@@ -908,8 +909,8 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 				cbReligion.setSelectedIndex(0);
 			}
 			// Combobox befüllen:
-			Kurswahlfenster.loescheUndSetzeComboBox(cbReligion, de.ruzman.kurswahl13.Konfig.INHALT_RELIGION.toString()
-					.split(","));
+			Kurswahlfenster13.loescheUndSetzeComboBox(cbReligion, de.ruzman.kurswahl13.Konfig.INHALT_RELIGION
+					.toString().split(","));
 		} else {
 			// Combobox cbReligionen verstecken:
 			jLabel2.setVisible(false);
