@@ -1,6 +1,5 @@
-package de.ruzman.kurswahl11;
+package de.ruzman;
 
-import de.ruzman.Konfiguration;
 
 /**
  * Das Enum Konfig weist den einzelnen Zeilen aus der konfig.ini Variablen zu.
@@ -23,7 +22,7 @@ public enum Konfig {
 	ERGENIS_TABELLE,
 
 	// Zustandsoptionen:
-	INHALT_WAHLPFLICHT, INHALT_SPORT, ZUSTAND_CHKRELIGION, ZUSTAND_RELIGION, INHALT_RELIGION, ZUSTAND_FREMD, ZUSTAND_ZUSATZ2;
+	INHALT_WAHLPFLICHT, INHALT_SPORT, ZUSTAND_CHKRELIGION, ZUSTAND_RELIGION, INHALT_RELIGION, ZUSTAND_ZUSATZ1, ZUSTAND_ZUSATZ2, ZUSTAND_SPORTWAHL, INHALT_FREMDSPRACHEN;
 
 	// Konfiguration, die gesetzt wurde:
 	private String einstellung;

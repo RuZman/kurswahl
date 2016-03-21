@@ -32,16 +32,16 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 		cbReligion.setSize(50, 15);
 
 		// Legt den Inhalt für die Combobox ErstwahlSport fest:
-		Kurswahlfenster13.loescheUndSetzeComboBox(cbErstwahl, "-Auswählen-", de.ruzman.kurswahl13.Konfig.INHALT_SPORT
+		Kurswahlfenster13.loescheUndSetzeComboBox(cbErstwahl, "-Auswählen-", de.ruzman.Konfig.INHALT_SPORT
 				.toString().split(","), true);
 
 		// Legt den Inhalt für die Combobox ZweitwahlSport fest:
-		Kurswahlfenster13.loescheUndSetzeComboBox(cbZweitwahl, "-Auswählen-", de.ruzman.kurswahl13.Konfig.INHALT_SPORT
+		Kurswahlfenster13.loescheUndSetzeComboBox(cbZweitwahl, "-Auswählen-", de.ruzman.Konfig.INHALT_SPORT
 				.toString().split(","), true);
 
 		// Legt den Inhalt für die Combobox ErstwahlSport fest:
 		Kurswahlfenster13.loescheUndSetzeComboBox(cbWahlpflicht, "-Auswählen-",
-				de.ruzman.kurswahl13.Konfig.INHALT_WAHLPFLICHT.toString().split(","), true);
+				de.ruzman.Konfig.INHALT_WAHLPFLICHT.toString().split(","), true);
 	}
 
 	/**
@@ -720,7 +720,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 			} else if (!(((String) cbErstwahl.getSelectedItem()).equals("-Auswählen-"))) {
 				cbZweitwahl.removeAllItems();
 				cbZweitwahl.addItem("-Auswählen-");
-				for (String s : de.ruzman.kurswahl13.Konfig.INHALT_SPORT.toString().split(",")) {
+				for (String s : de.ruzman.Konfig.INHALT_SPORT.toString().split(",")) {
 					if (!s.equals((String) cbErstwahl.getSelectedItem())) {
 						cbZweitwahl.addItem(s);
 					}
@@ -864,7 +864,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 		chbReligion_ethik.setVisible(false);
 
 		// Falls die Abwahl der Religionen zugelassen ist:
-		if ((de.ruzman.kurswahl13.Konfig.ZUSTAND_CHKRELIGION.toString()).equalsIgnoreCase("AN")) {
+		if ((de.ruzman.Konfig.ZUSTAND_CHKRELIGION.toString()).equalsIgnoreCase("AN")) {
 			// Prüft ob kath. Religion belegt wird:
 			if (schueler.belegtFach("%kath%")) {
 				chbReligion_kat.setVisible(true);
@@ -900,7 +900,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 		chbReligion_evang.setSelected(false);
 
 		// Falls die Wahl der Religion erlaubt ist:
-		if (de.ruzman.kurswahl13.Konfig.ZUSTAND_RELIGION.toString().equalsIgnoreCase("AN")) {
+		if (de.ruzman.Konfig.ZUSTAND_RELIGION.toString().equalsIgnoreCase("AN")) {
 			// Combobox anzeigen:
 			jLabel2.setVisible(true);
 			cbReligion.setVisible(true);
@@ -909,7 +909,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 				cbReligion.setSelectedIndex(0);
 			}
 			// Combobox befüllen:
-			Kurswahlfenster13.loescheUndSetzeComboBox(cbReligion, de.ruzman.kurswahl13.Konfig.INHALT_RELIGION
+			Kurswahlfenster13.loescheUndSetzeComboBox(cbReligion, de.ruzman.Konfig.INHALT_RELIGION
 					.toString().split(","));
 		} else {
 			// Combobox cbReligionen verstecken:
@@ -918,7 +918,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 		}
 
 		// Falls die zusätzliche Wahl erlaubt ist:
-		if (de.ruzman.kurswahl13.Konfig.ZUSTAND_ZUSATZ1.toString().equalsIgnoreCase("AN")) {
+		if (de.ruzman.Konfig.ZUSTAND_ZUSATZ1.toString().equalsIgnoreCase("AN")) {
 			// Zusätzliche Wahl anzeigen/leeren:
 			tfZusatzKurs.setText("");
 			laZusatzKurs.setVisible(true);
@@ -931,7 +931,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 		}
 
 		// Falls die zusätzliche Abwahl erlaubt ist:
-		if (de.ruzman.kurswahl13.Konfig.ZUSTAND_ZUSATZ2.toString().equalsIgnoreCase("AN")) {
+		if (de.ruzman.Konfig.ZUSTAND_ZUSATZ2.toString().equalsIgnoreCase("AN")) {
 			// Zusätzliche abwahl anzeigen/leeren:
 			tfAbwahlKurs.setText("");
 			laAbwahlKurs.setVisible(true);
@@ -943,7 +943,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 			tfAbwahlKurs.setVisible(false);
 		}
 
-		boolean istSportkursAktiv = de.ruzman.kurswahl13.Konfig.ZUSTAND_SPORTWAHL.toString().equalsIgnoreCase("AN");
+		boolean istSportkursAktiv = de.ruzman.Konfig.ZUSTAND_SPORTWAHL.toString().equalsIgnoreCase("AN");
 		laSportkurs2.setVisible(istSportkursAktiv);
 		jPanel4.setVisible(istSportkursAktiv);
 	}

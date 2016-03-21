@@ -1,6 +1,6 @@
 package de.ruzman;
 
-import static de.ruzman.kurswahl13.Konfig.DATENBANK_PFAD;
+import static de.ruzman.Konfig.DATENBANK_PFAD;
 import static net.ucanaccess.jdbc.UcanaccessDriver.URL_PREFIX;
 
 import java.io.File;

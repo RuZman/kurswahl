@@ -1,23 +1,21 @@
 package de.ruzman;
 
-import static de.ruzman.kurswahl13.Konfig.ERGENIS_TABELLE;
-import static de.ruzman.kurswahl13.Konfig.KURS_FACHBEZEICHNUNG;
-import static de.ruzman.kurswahl13.Konfig.KURS_KLASSENNAMEN;
-import static de.ruzman.kurswahl13.Konfig.KURS_KURSBEZEICHNUNG;
-import static de.ruzman.kurswahl13.Konfig.KURS_KURSSTUNDEN;
-import static de.ruzman.kurswahl13.Konfig.KURS_LEHRER;
-import static de.ruzman.kurswahl13.Konfig.KURS_SCHULERNAMEN;
-import static de.ruzman.kurswahl13.Konfig.KURS_SCHULFORMEN;
-import static de.ruzman.kurswahl13.Konfig.KURS_TABELLE;
-import static de.ruzman.kurswahl13.Konfig.SCHUELER_GEBDATUM;
-import static de.ruzman.kurswahl13.Konfig.SCHUELER_GEBORT;
-import static de.ruzman.kurswahl13.Konfig.SCHUELER_KLASSE;
-import static de.ruzman.kurswahl13.Konfig.SCHUELER_NAME;
-import static de.ruzman.kurswahl13.Konfig.SCHUELER_TABELLE;
+import static de.ruzman.Konfig.ERGENIS_TABELLE;
+import static de.ruzman.Konfig.KURS_FACHBEZEICHNUNG;
+import static de.ruzman.Konfig.KURS_KLASSENNAMEN;
+import static de.ruzman.Konfig.KURS_KURSBEZEICHNUNG;
+import static de.ruzman.Konfig.KURS_KURSSTUNDEN;
+import static de.ruzman.Konfig.KURS_LEHRER;
+import static de.ruzman.Konfig.KURS_SCHULERNAMEN;
+import static de.ruzman.Konfig.KURS_SCHULFORMEN;
+import static de.ruzman.Konfig.KURS_TABELLE;
+import static de.ruzman.Konfig.SCHUELER_GEBDATUM;
+import static de.ruzman.Konfig.SCHUELER_GEBORT;
+import static de.ruzman.Konfig.SCHUELER_KLASSE;
+import static de.ruzman.Konfig.SCHUELER_NAME;
+import static de.ruzman.Konfig.SCHUELER_TABELLE;
 
 import java.sql.SQLException;
-
-import de.ruzman.kurswahl13.Konfig;
 
 /**
  * Enthält Operationen, die im Zusamenhang mit einem einzelnen Schüler stehen.

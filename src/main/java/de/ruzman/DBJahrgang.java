@@ -1,10 +1,10 @@
 package de.ruzman;
 
-import static de.ruzman.kurswahl13.Konfig.INHALT_SPORT;
-import static de.ruzman.kurswahl13.Konfig.SCHUELER_GEBDATUM;
-import static de.ruzman.kurswahl13.Konfig.SCHUELER_KLASSE;
-import static de.ruzman.kurswahl13.Konfig.SCHUELER_NAME;
-import static de.ruzman.kurswahl13.Konfig.SCHUELER_TABELLE;
+import static de.ruzman.Konfig.INHALT_SPORT;
+import static de.ruzman.Konfig.SCHUELER_GEBDATUM;
+import static de.ruzman.Konfig.SCHUELER_KLASSE;
+import static de.ruzman.Konfig.SCHUELER_NAME;
+import static de.ruzman.Konfig.SCHUELER_TABELLE;
 
 import java.sql.SQLException;
 

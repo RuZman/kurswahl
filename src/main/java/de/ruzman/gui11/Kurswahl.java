@@ -1,5 +1,9 @@
 package de.ruzman.gui11;
 
+import static de.ruzman.Konfig.INHALT_FREMDSPRACHEN;
+import static de.ruzman.Konfig.INHALT_RELIGION;
+import static de.ruzman.Konfig.INHALT_SPORT;
+import static de.ruzman.Konfig.INHALT_WAHLPFLICHT;
 import de.ruzman.gui.Erneuerbar;
 import de.ruzman.kurswahl11.DBSchueler11;
 
@@ -488,22 +492,18 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 	 */
 	public void zuruecksetzen() {
 		// Legt den Inhalt für die Combobox ErstwahlSport fest:
-		Kurswahlfenster11.loescheUndSetzeComboBox(cbSportwahl, de.ruzman.kurswahl11.Konfig.INHALT_SPORT.toString()
-				.split(","));
+		Kurswahlfenster11.loescheUndSetzeComboBox(cbSportwahl, INHALT_SPORT.toString().split(","));
 
-		Kurswahlfenster11.loescheUndSetzeComboBox(cbReligion, de.ruzman.kurswahl11.Konfig.INHALT_RELIGION.toString()
-				.split(","));
+		Kurswahlfenster11.loescheUndSetzeComboBox(cbReligion, INHALT_RELIGION.toString().split(","));
 
-		Kurswahlfenster11.loescheUndSetzeComboBox(cbFremdsprache, "Nicht teilnehmen",
-				de.ruzman.kurswahl11.Konfig.ZUSTAND_FREMD.toString().split(","), true);
+		Kurswahlfenster11.loescheUndSetzeComboBox(cbFremdsprache, INHALT_FREMDSPRACHEN.toString().split(","));
 
 		Kurswahlfenster11.loescheUndSetzeComboBox(cbLeistungskurs, "-Auswählen-", "Deutsch,Englisch,Mathe".split(","),
 				true);
 
 		Kurswahlfenster11.loescheUndSetzeComboBox(cbNatKurs, "-Auswählen-", new String[0], true);
 
-		Kurswahlfenster11.loescheUndSetzeComboBox(cbWahlpflicht, de.ruzman.kurswahl11.Konfig.INHALT_WAHLPFLICHT
-				.toString().split(","));
+		Kurswahlfenster11.loescheUndSetzeComboBox(cbWahlpflicht, INHALT_WAHLPFLICHT.toString().split(","));
 
 		// Neuen Namen anzeigen:
 		laName.setText("Name: " + schueler.gibName());
