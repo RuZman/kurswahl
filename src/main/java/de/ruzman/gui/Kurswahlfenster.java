@@ -11,6 +11,8 @@ import javax.swing.JLayeredPane;
 import de.ruzman.DBJahrgang;
 
 public class Kurswahlfenster extends JFrame {
+	public static final String VERSION = "v1.6.1";
+
 	// Zur Kommunikation mit einer Datenbank:
 	// Darf während einer Kurswahl nicht geändert werden! -> final
 	protected static DBJahrgang jahrgang;

@@ -1,5 +1,6 @@
 package de.ruzman.gui13;
 
+import static de.ruzman.gui.Kurswahlfenster.VERSION;
 import de.ruzman.gui.Erneuerbar;
 import de.ruzman.kurswahl13.DBSchueler13;
 
@@ -32,16 +33,16 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 		cbReligion.setSize(50, 15);
 
 		// Legt den Inhalt für die Combobox ErstwahlSport fest:
-		Kurswahlfenster13.loescheUndSetzeComboBox(cbErstwahl, "-Auswählen-", de.ruzman.Konfig.INHALT_SPORT
-				.toString().split(","), true);
+		Kurswahlfenster13.loescheUndSetzeComboBox(cbErstwahl, "-Auswählen-", de.ruzman.Konfig.INHALT_SPORT.toString()
+				.split(","), true);
 
 		// Legt den Inhalt für die Combobox ZweitwahlSport fest:
-		Kurswahlfenster13.loescheUndSetzeComboBox(cbZweitwahl, "-Auswählen-", de.ruzman.Konfig.INHALT_SPORT
-				.toString().split(","), true);
+		Kurswahlfenster13.loescheUndSetzeComboBox(cbZweitwahl, "-Auswählen-", de.ruzman.Konfig.INHALT_SPORT.toString()
+				.split(","), true);
 
 		// Legt den Inhalt für die Combobox ErstwahlSport fest:
-		Kurswahlfenster13.loescheUndSetzeComboBox(cbWahlpflicht, "-Auswählen-",
-				de.ruzman.Konfig.INHALT_WAHLPFLICHT.toString().split(","), true);
+		Kurswahlfenster13.loescheUndSetzeComboBox(cbWahlpflicht, "-Auswählen-", de.ruzman.Konfig.INHALT_WAHLPFLICHT
+				.toString().split(","), true);
 	}
 
 	/**
@@ -256,7 +257,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 
 		add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, 70));
 
-		jLabel1.setText("v1.6.0");
+		jLabel1.setText(VERSION);
 		add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, -1));
 
 		jPanel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -909,8 +910,8 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 				cbReligion.setSelectedIndex(0);
 			}
 			// Combobox befüllen:
-			Kurswahlfenster13.loescheUndSetzeComboBox(cbReligion, de.ruzman.Konfig.INHALT_RELIGION
-					.toString().split(","));
+			Kurswahlfenster13.loescheUndSetzeComboBox(cbReligion, de.ruzman.Konfig.INHALT_RELIGION.toString()
+					.split(","));
 		} else {
 			// Combobox cbReligionen verstecken:
 			jLabel2.setVisible(false);

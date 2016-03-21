@@ -4,6 +4,7 @@ import static de.ruzman.Konfig.INHALT_FREMDSPRACHEN;
 import static de.ruzman.Konfig.INHALT_RELIGION;
 import static de.ruzman.Konfig.INHALT_SPORT;
 import static de.ruzman.Konfig.INHALT_WAHLPFLICHT;
+import static de.ruzman.gui.Kurswahlfenster.VERSION;
 import de.ruzman.gui.Erneuerbar;
 import de.ruzman.kurswahl11.DBSchueler11;
 
@@ -86,7 +87,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 		laName.setText("Name:");
 		add(laName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-		jLabel1.setText("v1.2.1");
+		jLabel1.setText(VERSION);
 		add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
 
 		jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Erweiterte Kurse",
