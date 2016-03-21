@@ -150,35 +150,4 @@ public class DBSchueler13 extends DBSchueler {
 
 		return true;
 	}
-
-	public void wiederholen() {
-		if (update(new String[][] {
-				// Schülerdaten:
-				{ "Name", name.replace("_", "’") }, { "Fachrichtung", fachrichtung }, { "Kurs", kurs },
-				{ "LK", gibLeistungskurs() },
-
-				// Klasse wiederholen:
-				{ "klasseWiederholen", "-1" }, { "schuleVerlassen", "0" } })) {
-			// Update gelungen:
-			gespeichert = true;
-		} else {
-			// Update fehlgeschlagen:
-			gespeichert = false;
-		}
-	}
-
-	public void verlassen() {
-		if (update(new String[][] {
-				// Schülerdaten:
-				{ "Name", name }, { "Fachrichtung", fachrichtung }, { "Kurs", kurs }, { "LK", gibLeistungskurs() },
-
-				// Schule verlassen:
-				{ "klasseWiederholen", "0" }, { "schuleVerlassen", "-1" } })) {
-			// Update gelungen:
-			gespeichert = true;
-		} else {
-			// Update fehlgeschlagen:
-			gespeichert = false;
-		}
-	}
 }
