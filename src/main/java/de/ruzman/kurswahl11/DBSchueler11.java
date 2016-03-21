@@ -56,8 +56,7 @@ public class DBSchueler11 extends DBSchueler {
 				{ "Zufallszahl", zahl },
 
 				// Naturwissenschaft:
-				{ "Hat_LKNW", intHatLKNW },
-				{ "Biologie", nat.equals("Biologie") ? "-1" : "0" },
+				{ "Hat_LKNW", intHatLKNW }, { "Biologie", nat.equals("Biologie") ? "-1" : "0" },
 				{ "Chemie", nat.equals("Chemie") ? "-1" : "0" },
 				{ "Physik", nat.equals("Physik") ? "-1" : "0" },
 
@@ -74,11 +73,12 @@ public class DBSchueler11 extends DBSchueler {
 				{ "Hat_2Fremdsprachen", fremd.equals("Nicht teilnehmen") ? "0" : "-1" },
 
 				// Religion:
-				{ "kat_Religion", reli.equals("Kath. Religion") ? "-1" : "0" },
+				/*{ "kat_Religion", reli.equals("Kath. Religion") ? "-1" : "0" },
 				{ "ev_Religion", reli.equals("Evang. Religion") ? "-1" : "0" },
 				{ "ethik_Religion", reli.equals("Ethik") ? "-1" : "0" },
 				{ "Hat_Religion", reli.equals("Nicht teilnehmen") ? "0" : "-1" }, { "reli_k", reli_k },
-				{ "reli_l", reli_l },
+				{ "reli_l", reli_l },*/
+				{ "reli_k", reli_k }, { "reli_l", reli_l }, { "Religion", reli },
 
 				{ "Sportkurs", sport }, { "Wahlpflichtkurs", wahlpflicht }, { "klasseWiederholen", "0" },
 				{ "schuleVerlassen", "0" } })) {
@@ -91,5 +91,4 @@ public class DBSchueler11 extends DBSchueler {
 
 		return true;
 	}
-
 }

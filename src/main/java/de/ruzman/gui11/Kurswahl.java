@@ -4,6 +4,7 @@ import static de.ruzman.Konfig.INHALT_FREMDSPRACHEN;
 import static de.ruzman.Konfig.INHALT_RELIGION;
 import static de.ruzman.Konfig.INHALT_SPORT;
 import static de.ruzman.Konfig.INHALT_WAHLPFLICHT;
+import static de.ruzman.Konfig.ZUSTAND_ERWEITERTE_KURSE;
 import static de.ruzman.gui.Kurswahlfenster.VERSION;
 import de.ruzman.gui.Erneuerbar;
 import de.ruzman.kurswahl11.DBSchueler11;
@@ -529,6 +530,10 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 		}
 
 		txtZufallszahl.setText("");
+		jPanel1.setVisible(!"Aus".equals(ZUSTAND_ERWEITERTE_KURSE.toString()));
+
+		cbReligion.setEnabled(INHALT_RELIGION.toString().split(",").length > 1);
+		cbSportwahl.setEnabled(INHALT_SPORT.toString().split(",").length > 1);
 	}
 
 	/**
