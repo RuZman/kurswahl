@@ -534,6 +534,19 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 
 		cbReligion.setEnabled(INHALT_RELIGION.toString().split(",").length > 1);
 		cbSportwahl.setEnabled(INHALT_SPORT.toString().split(",").length > 1);
+		
+		String fremd_k = schueler.gibKurs("Spani%");
+
+		if (fremd_k.equals("")) {
+			fremd_k = schueler.gibKurs("Franz%");
+		}
+		
+		cbFremdsprache.setEnabled(true);
+		if(fremd_k.equals("")) {
+			cbFremdsprache.addItem("Keine Fremdsprache");
+			cbFremdsprache.setSelectedItem("Keine Fremdsprache");
+			cbFremdsprache.setEnabled(false);
+		}
 	}
 
 	/**

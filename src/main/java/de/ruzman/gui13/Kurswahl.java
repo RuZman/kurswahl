@@ -687,7 +687,7 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 				|| chbDaten.isSelected() || (chbWahlpflicht.isSelected()) || !"-Auswählen-".equals(cbWahlpflicht
 				.getSelectedItem()))
 				&& (!(((String) cbErstwahl.getSelectedItem()).equals("-Auswählen-"))
-						&& !(((String) cbZweitwahl.getSelectedItem()).equals("-Auswählen-")) || !jPanel4.isVisible())) {
+						&& !(((String) cbZweitwahl.getSelectedItem()).equals("-XXXX-")) || !jPanel4.isVisible())) {
 			// Ob 2. Fremssparache belegt ist:
 			boolean hatFremdsprache = chbSpanisch.isVisible() || chbFranz.isVisible();
 			// Ob 2. Fremdsprache abgewählt wird:
@@ -947,6 +947,8 @@ public class Kurswahl extends javax.swing.JPanel implements Erneuerbar {
 		boolean istSportkursAktiv = de.ruzman.Konfig.ZUSTAND_SPORTWAHL.toString().equalsIgnoreCase("AN");
 		laSportkurs2.setVisible(istSportkursAktiv);
 		jPanel4.setVisible(istSportkursAktiv);
+		cbZweitwahl.setVisible(false);
+		laZweitwahl.setVisible(false);
 	}
 
 	/**
