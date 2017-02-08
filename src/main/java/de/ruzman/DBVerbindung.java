@@ -65,7 +65,7 @@ public class DBVerbindung {
 	private void oeffneVerbindung() {
 		try {
 			File dbFile = new File(DATENBANK_PFAD.toString());
-			con = DriverManager.getConnection(URL_PREFIX + dbFile.getAbsolutePath());
+			con = DriverManager.getConnection(URL_PREFIX + dbFile.getAbsolutePath(), "", "zoltan");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println("Es konnte keine Verbindung zur Datenbank" + " (" + DATENBANK_PFAD
