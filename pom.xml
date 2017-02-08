@@ -23,6 +23,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.netbeans.external</groupId>
+			<artifactId>AbsoluteLayout</artifactId>
+			<version>RELEASE731</version>
+		</dependency>
+		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>2.2.8</version>
@@ -70,4 +75,12 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>jcenter</id> <!-- Needed only for AbsoluteLayout.jar -->
+			<name>jcenter</name>
+			<url>http://jcenter.bintray.com/</url> 
+		</repository>
+	</repositories>
 </project>
