@@ -91,6 +91,13 @@ public class LoginTest {
 		initDBSchueler();
 		assertFalse(schueler.istGeburtsort("BürFalsch"));
 	}
+	
+	@Test
+	public void seltsamerGeburtsortTest() {
+		initDBSchueler();
+		schueler.setzeName("Zimt, Peter");
+		assertTrue(schueler.istGeburtsort("Â'á"));
+	}
 
 	private void initDBSchueler() {
 		schueler.setzeKurs("12CH13");

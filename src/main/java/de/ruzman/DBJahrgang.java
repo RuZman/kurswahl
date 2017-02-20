@@ -44,7 +44,7 @@ public class DBJahrgang extends DBVerbindung {
 			System.out.println("" + ex);
 		}
 		// Geburtsjahre:
-		return gibAusgewaehlteSpalte(rs);
+		return ohneLeerzeilen(gibAusgewaehlteSpalte(rs));
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class DBJahrgang extends DBVerbindung {
 			System.out.println("" + ex);
 		}
 		// Kurse:
-		return gibAusgewaehlteSpalte(rs);
+		return ohneLeerzeilen(gibAusgewaehlteSpalte(rs));
 	}
 
 	/**

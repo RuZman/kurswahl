@@ -58,6 +58,20 @@ public class DBVerbindung {
 			return null;
 		}
 	}
+	
+	public String[] ohneLeerzeilen(String[] array) {
+		ArrayList<String> buffer = new ArrayList<>(array.length);
+		
+		for(String element: array) {
+			if(element == null || element.isEmpty() || element.equals("''")) {
+				continue;
+			}
+			
+			buffer.add(element);
+		}
+		
+		return (String[]) buffer.toArray(new String[buffer.size()]); 
+	}
 
 	/**
 	 * Öffnet eine Verbindung zu einer bestimmten Datenbank.
