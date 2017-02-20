@@ -17,7 +17,7 @@ public class LoginTest {
 
 	@BeforeClass
 	public static void initKonfig() {
-		Konfiguration.gibInstanz("LoginTest.ini");
+		Konfiguration.gibInstanz("test-classes/LoginTest.ini");
 	}
 
 	@Before

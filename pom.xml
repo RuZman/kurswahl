@@ -72,6 +72,7 @@
 		</dependency>
 	</dependencies>
 
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -80,7 +81,7 @@
 		<repository>
 			<id>jcenter</id> <!-- Needed only for AbsoluteLayout.jar -->
 			<name>jcenter</name>
-			<url>http://jcenter.bintray.com/</url> 
+			<url>http://jcenter.bintray.com/</url>
 		</repository>
 	</repositories>
 </project>
